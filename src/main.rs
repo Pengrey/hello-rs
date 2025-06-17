@@ -1,4 +1,5 @@
 #![no_std]
+#![windows_subsystem = "windows"] // remove the need for a console popup when executed
 
 use windows::{core::*, Win32::UI::Shell::*, Win32::UI::WindowsAndMessaging::*};
 

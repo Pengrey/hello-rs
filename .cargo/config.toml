@@ -1,0 +1,15 @@
+# Build configuration
+[build]
+rustflags = [
+    "-Z", "location-detail=none",           # remove file, line, and column information for panic!()
+    "-C", "link-arg=-s",
+    "-C", "link-arg=-Wl,--gc-sections",
+    "-C", "link-arg=-Wl,--strip-all",
+    "-C", "target-feature=+crt-static",
+    "-C", "prefer-dynamic=false",
+    "-C", "debuginfo=0",
+    "-C", "symbol-mangling-version=v0",
+    "-Z", "share-generics=off",
+    "-Z", "threads=1",
+    "-Z", "unstable-options"
+]

@@ -1,7 +1,8 @@
 [package]
-name = "binary"
+name = "hello"
 version = "0.1.0"
 edition = "2024"
+build = "build.rs"
 
 [dependencies]
 windows = { version = "0.60.0", features = [
@@ -10,43 +11,20 @@ windows = { version = "0.60.0", features = [
 ] }
 
 [profile.release]
-debug = false
-strip = "symbols"
-opt-level = "z"
-panic = "abort"
-incremental = false
-lto = true
-codegen-units = 1
-overflow-checks = false
-debug-assertions = false
-rpath = false
+codegen-units = 1                           # reduces binary size by ~2%
+lto = true                                  # reduces binary size by ~14%
+opt-level = "z"                             # reduces binary size by ~25%
+panic = "abort"                             # reduces binary size by ~50% in combination with -Zbuild-std-features=panic_immediate_abort
+debug = "none"                              # disable debug information
+split-debuginfo = "packed"                  # generates a separate *.dwp/*.dSYM so the binary can get stripped
+strip = "symbols"                           # see split-debuginfo - allows us to drop the size by ~65%
+incremental = false                         # no need to improve re-compile times
+overflow-checks = false                     # disable integer overflow checks.
+debug-assertions = false                    # dont enable extra debugging code
+rpath = false                               # dont encode the path to shared libraries into the header
 
 # Additional size reduction for all dependencies
 [profile.release.package."*"]
 opt-level = "z"
 strip = "symbols"
 codegen-units = 1
-
-# Build configuration
-[build]
-rustflags = [
-    "-Z", "location-detail=none",
-    "-C", "link-arg=-s",
-    "-C", "link-arg=-Wl,--gc-sections",
-    "-C", "link-arg=-Wl,--strip-all",
-    "-C", "target-feature=+crt-static",
-    "-C", "prefer-dynamic=false",
-    "-C", "embed-bitcode=false",
-    "-C", "debuginfo=0",
-    "-C", "symbol-mangling-version=v0",
-    "-Z", "share-generics=off",
-    "-Z", "threads=1",
-    "-Z", "unstable-options",
-    # Windows specific
-    "-C", "link-arg=/SUBSYSTEM:CONSOLE",
-    "-C", "link-arg=/MERGE:.rdata=.text"
-]
-
-# Standard library rebuild for maximum optimization
-build-std = ["core", "alloc", "std", "panic_abort"]
-build-std-features = ["panic_immediate_abort"]
