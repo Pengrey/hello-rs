@@ -2,9 +2,12 @@
 CARGO := cargo +nightly
 
 # Binary paths
-BINARY_NAME  := hello
-x64_OUT_PATH := target/x86_64-pc-windows-gnu/release/$(BINARY_NAME).exe
-x86_OUT_PATH := target/i686-pc-windows-gnu/release/$(BINARY_NAME).exe
+BINARY_NAME 	:= hello
+x64_OUT_PATH	:= target/x86_64-pc-windows-gnu/release/$(BINARY_NAME).exe
+x86_OUT_PATH	:= target/i686-pc-windows-gnu/release/$(BINARY_NAME).exe
+
+# Linker paths
+export LD_PATH	:= ${pwd}/scripts/linker.ld
 
 # Logger
 define log_info
@@ -22,13 +25,7 @@ debug: x64-debug x86-debug
 # x64 builds
 x64:
 	@ $(call log_info,[x64] Compiling...)
-	@ $(CARGO) build --release --target x86_64-pc-windows-gnu
-	@ $(call log_success)
-	@ $(call log_info,[x64] Stripping...)
-	@ strip --strip-all $(x64_OUT_PATH)
-	@ $(call log_success)
-	@ $(call log_info,[x64] Removing sections...)
-	@ objcopy -R .comment,.note,.eh_fram,.eh_frame,.eh_frame_hdr,.rustc,.cargo,.rmeta $(x64_OUT_PATH)
+	@ $(CARGO) build -q --release --target x86_64-pc-windows-gnu
 	@ $(call log_success)
 
 x64-debug:
@@ -40,12 +37,6 @@ x64-debug:
 x86:
 	@ $(call log_info,[x86] Compiling...)
 	@ $(CARGO) build --release --target i686-pc-windows-gnu
-	@ $(call log_success)
-	@ $(call log_info,[x86] Stripping...)
-	@ strip --strip-all $(x86_OUT_PATH)
-	@ $(call log_success)
-	@ $(call log_info,[x86] Removing sections...)
-	@ objcopy -R .comment,.note,.eh_frame,.eh_frame_hdr,.rustc,.cargo,.rmeta $(x86_OUT_PATH)
 	@ $(call log_success)
 
 x86-debug:

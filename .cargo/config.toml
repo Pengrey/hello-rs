@@ -1,15 +1,14 @@
-# Build configuration
 [build]
 rustflags = [
-    "-Z", "location-detail=none",           # remove file, line, and column information for panic!()
-    "-C", "link-arg=-s",
-    "-C", "link-arg=-Wl,--gc-sections",
-    "-C", "link-arg=-Wl,--strip-all",
-    "-C", "target-feature=+crt-static",
-    "-C", "prefer-dynamic=false",
-    "-C", "debuginfo=0",
-    "-C", "symbol-mangling-version=v0",
-    "-Z", "share-generics=off",
-    "-Z", "threads=1",
-    "-Z", "unstable-options"
+    "-Z", "location-detail=none",           # Remove file, line, and column information for panic!() to reduce binary size
+    "-C", "link-arg=-s",                    # Strip all symbols from the final binary (linker flag)
+    "-C", "link-arg=-Wl,--gc-sections",     # Remove unused sections from the binary (garbage collection)
+    "-C", "link-arg=-Wl,--strip-all",       # Strip all symbols and relocation information
+    "-C", "target-feature=+crt-static",     # Statically link the C runtime library instead of using dynamic linking
+    "-C", "prefer-dynamic=false",           # Force static linking instead of dynamic linking
+    "-C", "debuginfo=0",                    # Disable debug information generation completely
+    "-C", "symbol-mangling-version=v0",     # Use legacy symbol mangling for smaller symbols
+    "-Z", "share-generics=off",             # Disable sharing of generic instantiations across crates
+    "-Z", "threads=1",                      # Use single-threaded compilation (may reduce memory usage)
+    "-Z", "unstable-options"                # Enable unstable compiler options (required for -Z flags)
 ]
