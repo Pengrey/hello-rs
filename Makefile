@@ -6,9 +6,6 @@ BINARY_NAME 	:= hello
 x64_OUT_PATH	:= target/x86_64-pc-windows-gnu/release/$(BINARY_NAME).exe
 x86_OUT_PATH	:= target/i686-pc-windows-gnu/release/$(BINARY_NAME).exe
 
-# Linker paths
-export LD_PATH	:= ${pwd}/scripts/linker.ld
-
 # Logger
 define log_info
 	echo -e "[\033[0;33m*\033[0m] $(1)"
