@@ -129,7 +129,7 @@ SECTIONS {
         *(.edata)                   /* Exported symbols information */
     }
 
-        /* .idata section: PE Import Directory Table data. */
+    /* .idata section: PE Import Directory Table data. */
     .idata BLOCK(__section_alignment__) : {
         KEEP (SORT(*)(.idata$2))    /* Import Directory Table entries */
         KEEP (SORT(*)(.idata$3))    /* Import Lookup Table (ILT) or OriginalFirstThunk */
