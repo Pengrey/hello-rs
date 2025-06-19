@@ -1,6 +1,6 @@
 # Concept
 
-Simple Hello World with `windows` crate.
+Implementation of hello world in `windows`, focusing on binary size and malleability of windows binaries built with mingw toolchain.
 
 # Compiling
 

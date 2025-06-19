@@ -1,5 +1,4 @@
-SECTIONS
-{
+SECTIONS {
     . = SIZEOF_HEADERS;
     . = ALIGN(__section_alignment__);
     .text  __image_base__ + ( __section_alignment__ < 0x1000 ? . : __section_alignment__ ) : {
@@ -91,7 +90,6 @@ SECTIONS
         ___crt_xi_end__ = . ;
         ___crt_xl_start__ = . ;
         KEEP (*(SORT(.CRT$XL*)))  /* TLS callbacks */
-        /* ___crt_xl_end__ is defined in the TLS Directory support code */
         ___crt_xp_start__ = . ;
         KEEP (*(SORT(.CRT$XP*)))  /* Pre-termination */
         ___crt_xp_end__ = . ;
