@@ -22,9 +22,3 @@ incremental = false                         # no need to improve re-compile time
 overflow-checks = false                     # disable integer overflow checks.
 debug-assertions = false                    # dont enable extra debugging code
 rpath = false                               # dont encode the path to shared libraries into the header
-
-# Additional size reduction for all dependencies
-[profile.release.package."*"]
-opt-level = "z"
-strip = "symbols"
-codegen-units = 1

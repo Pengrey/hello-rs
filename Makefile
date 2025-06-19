@@ -22,7 +22,7 @@ debug: x64-debug x86-debug
 # x64 builds
 x64:
 	@ $(call log_info,[x64] Compiling...)
-	@ $(CARGO) build -q --release --target x86_64-pc-windows-gnu
+	@ $(CARGO) build --release --target x86_64-pc-windows-gnu
 	@ $(call log_success)
 
 x64-debug:
