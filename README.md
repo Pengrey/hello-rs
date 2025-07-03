@@ -4,6 +4,12 @@ Implementation of hello world in `windows`, focusing on binary size and malleabi
 
 # Compiling
 
+## Without debug info
 ```bash
 $ make
+```
+
+## With debug info
+```bash
+$ make debug
 ```
