@@ -22,7 +22,7 @@ x64:
 
 x64-debug:
 	@ $(call log_info,[x64|debug] Compiling...)
-	@ $(CARGO) build --features debug --target x86_64-pc-windows-gnu
+	@ $(CARGO) build --release --features debug --target x86_64-pc-windows-gnu
 	@ $(call log_success)
 
 # x86 builds
@@ -33,7 +33,7 @@ x86:
 
 x86-debug:
 	@ $(call log_info,[x86|debug] Compiling...)
-	@ $(CARGO) build --features debug --target i686-pc-windows-gnu
+	@ $(CARGO) build --release --features debug --target i686-pc-windows-gnu
 	@ $(call log_success)
 
 clean:
