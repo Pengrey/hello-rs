@@ -1,6 +1,6 @@
 #![no_std]
 
-#![cfg_attr(not(feature = "debug"), windows_subsystem = "windows")] // only remove the console popup when debugged
+#![cfg_attr(not(feature = "debug"), windows_subsystem = "windows")] // only remove the console popup if not debugged
 
 use windows::{core::*, Win32::UI::Shell::*, Win32::UI::WindowsAndMessaging::*};
 
